@@ -1,0 +1,8 @@
+# Just an informal way of noting where you got data from
+
+stashed/hello.txt:
+  url: https://example.com/data/hello.txt
+  landing_page: https://example.com
+  description: |
+    a sample "raw data" file for the template project
+
