@@ -6,5 +6,6 @@ setup(
     packages=find_packages(),
     install_requires=[
         'pytest',
+        'PyYaml>=5.1',
     ]
 )

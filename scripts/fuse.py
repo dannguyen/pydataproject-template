@@ -4,8 +4,8 @@ import csv
 from pathlib import Path
 from sys import stderr
 
-SRC_DIR = Path('data/stashed')
-DEST_PATH = Path('data/collated/helloworld.csv')
+SRC_DIR = Path('data/collected')
+DEST_PATH = Path('data/fused/helloworld.csv')
 
 RENAMED_HEADERS = ('full_name', 'birthdate', 'birthplace',)
 OUTPUT_HEADERS = ('source', 'full_name', 'birthdate', 'birthplace',)
@@ -34,7 +34,7 @@ def main():
             data = gather_data(src)
             outs.writerows(data)
 
-            stderr.write(f"Collated {len(data)} rows from {src}\n")
+            stderr.write(f"fused {len(data)} rows from {src}\n")
 
     stderr.write(f"Wrote to {DEST_PATH}\n")
 

@@ -1,18 +1,18 @@
 # Just an informal way of noting where you got data from...
-#  I typically use it just for data/stashed, i.e. for downloaded data, when it's important to
+#  I typically use it just for data/collected, i.e. for downloaded data, when it's important to
 #   know not just the source URL, but the context of the dataset when published
 
-data/stashed/hello.txt:
-  url: https://example.com/data/hello.txt
-  landing_page: https://example.com/computers
+data/collected/hello.txt:
+  url: https://gist.githubusercontent.com/dannguyen/df87d9d4cf42ed7b4f9549553ea5b8c8/raw/9bf95b5c6e234e491821cd355f6db1ec655cbe38/hello.txt
+  landing_page: https://gist.github.com/dannguyen/df87d9d4cf42ed7b4f9549553ea5b8c8
   description: |
     A sample "raw data" file for the template project.
 
     Tab delimited computing pioneers
 
 
-data/stashed/world.txt:
-  url: https://example.com/data/world.txt
-  landing_page: https://example.com/yes
+data/collected/world.txt:
+  url: https://gist.github.com/dannguyen/df87d9d4cf42ed7b4f9549553ea5b8c8/raw/9bf95b5c6e234e491821cd355f6db1ec655cbe38/world.txt
+  landing_page: https://gist.github.com/dannguyen/df87d9d4cf42ed7b4f9549553ea5b8c8
   description: |
     Tab delimited heroes

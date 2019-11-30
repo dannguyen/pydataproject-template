@@ -3,9 +3,9 @@
 
 SQLIZED_DB = data/myfoo.sqlite
 STUB_WRANGLED = data/wrangled/helloworld.csv
-STUB_COLLATED = data/collated/helloworld.csv
-STUB_STASHED = data/stashed/hello.txt \
-			   data/stashed/world.txt
+STUB_FUSED = data/fused/helloworld.csv
+STUB_COLLECTED = data/collected/hello.txt \
+			   data/collected/world.txt
 
 help:
 	@echo 'Run `make ALL` to see how things run from scratch'
@@ -16,7 +16,8 @@ ALL: clean sqlize
 clean: clean_sqlize
 	@echo --- Cleaning stubs
 	rm -f $(STUB_WRANGLED)
-	rm -f $(STUB_COLLATED)
+	rm -f $(STUB_FUSED)
+	rm -f $(STUB_COLLECTED)
 
 
 clean_sqlize:
@@ -31,7 +32,7 @@ $(SQLIZED_DB): wrangle clean_sqlize
 	@echo --- SQLizing tables $@
 	@echo
 	./scripts/sqlize.sh \
-      $(SQLIZED_DB) data/collated collated
+      $(SQLIZED_DB) data/fused fused
 
 	@echo ""
 	@echo "---"
@@ -51,7 +52,7 @@ $(SQLIZED_DB): wrangle clean_sqlize
 # e.g. myfoo/wrangle/my_wrangler.py
 wrangle: $(STUB_WRANGLED)
 
-$(STUB_WRANGLED): $(STUB_COLLATED) ./scripts/wrangle.py
+$(STUB_WRANGLED): fuse ./scripts/wrangle.py
 	@echo ""
 	@echo --- Wrangling $@
 	@echo
@@ -59,11 +60,15 @@ $(STUB_WRANGLED): $(STUB_COLLATED) ./scripts/wrangle.py
 	./scripts/wrangle.py
 
 
-collate: $(STUB_COLLATED)
+fuse: $(STUB_FUSED)
 
-$(STUB_COLLATED): $(STUB_STASHED) ./scripts/collate.py
+$(STUB_FUSED): collect ./scripts/fuse.py
 	@echo ""
 	@echo --- Collating $@
 
-	./scripts/collate.py
+	./scripts/fuse.py
 
+
+collect:
+	@echo "Gathers $(STUB_COLLECTED)"
+	./scripts/collect.py

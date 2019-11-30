@@ -9,8 +9,8 @@ def hello():
 
 def helpstart():
     print("""
-    Run `make ALL` to see how data/sqlized.sqlite is created from
-     data/stashed/hello.txt
+    Run `make ALL` to see how data/myfoo.sqlite is created from
+     data/collected/hello.txt and data/collected/world.txt
     """)
 
 if __name__ == '__main__':
