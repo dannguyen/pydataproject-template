@@ -1,0 +1,18 @@
+# Just an informal way of noting where you got data from...
+#  I typically use it just for data/stashed, i.e. for downloaded data, when it's important to
+#   know not just the source URL, but the context of the dataset when published
+
+data/stashed/hello.txt:
+  url: https://example.com/data/hello.txt
+  landing_page: https://example.com/computers
+  description: |
+    A sample "raw data" file for the template project.
+
+    Tab delimited computing pioneers
+
+
+data/stashed/world.txt:
+  url: https://example.com/data/world.txt
+  landing_page: https://example.com/yes
+  description: |
+    Tab delimited heroes

@@ -1,3 +1,4 @@
-hello	world	foo	bar
-Kernighan	Brian	1942	Toronto
-Hopper	Grace	1906	NYC
+name	birthday	city
+Hopper, Grace	12/9/1906	NYC
+Kernighan, Brian	1/1/1942	Toronto
+Apple, Tim	11/1/1960	Mobile

@@ -1,0 +1,3 @@
+name	birthday	city
+Cage, Nicolas	1/7/1964	Long Beach
+Weaver, Sigourney	10/8/1949	Manhattan

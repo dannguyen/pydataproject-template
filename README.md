@@ -31,6 +31,105 @@ $ pytest
 ```
 
 
+## Stages of data work
+
+
+### stash
+
+the raw, original data. In its original form, including disparate file formats and across multiple files:
+
+[data/stashed/hello.txt](data/stashed/hello.txt):
+
+```
+name    birthday    city
+Hopper, Grace   12/9/1906   NYC
+Kernighan, Brian    1/1/1942    Toronto
+Apple, Tim  11/1/1960   Mobile
+```
+
+
+[data/stashed/world.txt](data/stashed/world.txt):
+
+
+```
+name    birthday    city
+Cage, Nicolas   1/7/1964    Long Beach
+Weaver, Sigourney   10/8/1949   Manhattan
+```
+
+
+### collate
+
+This step gathers all the original data files and:
+
+- converts the file formats, e.g. getting CSV out of PDF, XLS, HTML, etc.
+- concatenates the data into a single file, when the original data was split across multiple files (e.g. by year)
+
+Very little to no cleaning is done, with the exception of cleaning up header names and changing column order.
+
+```sh
+$ make collate
+```
+
+- calls [scripts/collate.py](scripts/collate.py)
+
+Which converts and concatenates the 2 stashed tab-delimited files into a single CSV:
+
+[data/collated/helloworld.csv](data/collated/helloworld.csv)
+
+```
+source,full_name,birthdate,birthplace
+hello,"Hopper, Grace",12/9/1906,NYC
+hello,"Kernighan, Brian",1/1/1942,Toronto
+hello,"Apple, Tim",11/1/1960,Mobile
+world,"Cage, Nicolas",1/7/1964,Long Beach
+world,"Weaver, Sigourney",10/8/1949,Manhattan
+
+```
+
+
+A `source` column is added to keep track of where each data record came from (e.g. either the `hello` or the `world` file). Existing columns are renamed, e.g. `name` to `full_name`, `birthday` to `birthdate`, and `city` to `birthplace`. But otherwise, the actual content of the data is untouched. 
+
+Think of the **collate** step as doing the least amount of work and data alteration to deliver the most convenient, easy-to-understand files for the person doing the next phase of **wrangling**.
+
+
+### wrangle
+
+Wrangle is a catch-all term for data transformation, cleaning, filtering, tidying, and reconciling, i.e. when the data becomes all but impossible to revert to its original "stashed" form. Which is *fine* – this kind of irreversible work is needed with real-world data, which wasn't collected or structured to accommodate whatever interesting and bespoke analysis and project you have in mind. 
+
+
+Running the `make wrangle` step simply executes the [scripts/wrangle.py](scripts/wrangle.py) file. Which reads from [data/collated/helloworld.csv](data/collated/helloworld.csv) and produces [data/wrangled/helloworld.csv](data/wrangled/helloworld.csv):
+
+
+```
+source,last_name,first_name,current_age,birthdate,birthplace
+hello,Apple,Tim,59,1960-11-01,Mobile
+world,Cage,Nicolas,55,1964-01-07,Long Beach
+hello,Hopper,Grace,112,1906-12-09,NYC
+hello,Kernighan,Brian,77,1942-01-01,Toronto
+world,Weaver,Sigourney,70,1949-10-08,Manhattan
+```
+
+
+Because the example data is pretty trivial, there aren't any irreversible steps. But you can see that the data itself has been transformed and augmented far beyond what the **collate** step did:
+
+- `full_name` column was parsed and split into `last_name` and `first_name`
+- `birthdate` column was reformatted from `M/D/YYYY` to iso8601's `yyyy-mm-dd`
+- `current_age` column is derived from `birthdate`
+
+
+### sqlize
+
+I find SQL to be one of the fastest and most convenient ways to explore newly organized data (e.g. tabular data, via collated and wrangled), especially with the ubiquity of SQLite.
+
+In this template repo I've included a shell script, [scripts/sqlize.sh](scripts/sqlize.sh), that reads the CSVs from data/collated and data/wrangled and, from each CSV, creates a quick and dumb table (i.e. every field is just plain text), e.g. `collated_helloworld` and `wrangled_helloworld`, and throws it in a file, [data/myfoo.sqlite](data/myfoo.sqlite)
+
+Oftentimes, with a very complicated data set, the wrangling process is a lot of trial and error. I find writing SQL queries to do sanity checks and aggregations more efficient than R and pandas, generally, but everyone has differing opinions and tolerances of SQL :)
+
+Run `make sqlize` to build [data/myfoo.sqlite](data/myfoo.sqlite). Or, run the data work from the start with `make ALL`
+ 
+
+
 
 ## Examples in action
 
@@ -41,11 +140,12 @@ $ pytest
 
 ```
 ├── data
-|   ├── data-manifest.yaml  -- lightweight log of where you got your data
-|   ├── sqlized.sqlite      -- a quick database created by `make sqlize`
+|   ├── myfoo.sqlite      -- a quick database created by `make sqlize`
 |   | 
 │   ├── stashed             -- store your original and immutable datafiles here
 │   └── wrangled            -- the end-result of wrangling, ideally csv files
+|
+├── data-manifest.yaml      -- lightweight log of where you got your data
 |
 ├── myfoo                   -- python package for data processing scripts
 ├── scripts                 -- helper scripts, not necessarily python
