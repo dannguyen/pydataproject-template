@@ -8,16 +8,16 @@ Because I always forget how to do this stuff, when starting new projects... :(
 
 ## How to use
 
-Clone this repo and install `myfoo` as a local project:
+Clone this repo and install `mypkg` as a local project:
 
 ```sh
 $ git clone https://github.com/dannguyen/pydataproject-template.git
 $ cd pydataproject-template
 $ pip install -e .
-$ python myfoo  # prints hello world
+$ python mypkg  # prints hello world
 ```
 
-To see an example of how the [Makefile](Makefile) executes the data-processing pipeline, e.g. creating the `data/myfoo.sqlite` database from [data/collected/hello.txt](data/collected/hello.txt):
+To see an example of how the [Makefile](Makefile) executes the data-processing pipeline, e.g. creating the `data/mypkg.sqlite` database from [data/collected/hello.txt](data/collected/hello.txt):
 
 ```sh
 $ make ALL
@@ -122,11 +122,11 @@ Because the example data is pretty trivial, there aren't any irreversible steps.
 
 I find SQL to be one of the fastest and most convenient ways to explore newly organized data (e.g. tabular data, via fused and wrangled), especially with the ubiquity of SQLite.
 
-In this template repo I've included a shell script, [scripts/sqlize.sh](scripts/sqlize.sh), that reads the CSVs from data/fused and data/wrangled and, from each CSV, creates a quick and dumb table (i.e. every field is just plain text), e.g. `fused_helloworld` and `wrangled_helloworld`, and throws it in a file, [data/myfoo.sqlite](data/myfoo.sqlite)
+In this template repo I've included a shell script, [scripts/sqlize.sh](scripts/sqlize.sh), that reads the CSVs from data/fused and data/wrangled and, from each CSV, creates a quick and dumb table (i.e. every field is just plain text), e.g. `fused_helloworld` and `wrangled_helloworld`, and throws it in a file, [data/mypkg.sqlite](data/mypkg.sqlite)
 
 Oftentimes, with a very complicated data set, the wrangling process is a lot of trial and error. I find writing SQL queries to do sanity checks and aggregations more efficient than R and pandas, generally, but everyone has differing opinions and tolerances of SQL :)
 
-Run `make sqlize` to build [data/myfoo.sqlite](data/myfoo.sqlite). Or, run the data work from the start with `make ALL`
+Run `make sqlize` to build [data/mypkg.sqlite](data/mypkg.sqlite). Or, run the data work from the start with `make ALL`
  
 
 
@@ -140,14 +140,14 @@ Run `make sqlize` to build [data/myfoo.sqlite](data/myfoo.sqlite). Or, run the d
 
 ```
 ├── data
-|   ├── myfoo.sqlite      -- a quick database created by `make sqlize`
+|   ├── mypkg.sqlite      -- a quick database created by `make sqlize`
 |   | 
 │   ├── collected             -- store your original and immutable datafiles here
 │   └── wrangled            -- the end-result of wrangling, ideally csv files
 |
 ├── data-manifest.yaml      -- lightweight log of where you got your data
 |
-├── myfoo                   -- python package for data processing scripts
+├── mypkg                   -- python package for data processing scripts
 ├── scripts                 -- helper scripts, not necessarily python
 └── tests                   -- tests for your python package
 ```

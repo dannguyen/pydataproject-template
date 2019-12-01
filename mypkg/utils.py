@@ -9,7 +9,7 @@ def hello():
 
 def helpstart():
     print("""
-    Run `make ALL` to see how data/myfoo.sqlite is created from
+    Run `make ALL` to see how data/mypkg.sqlite is created from
      data/collected/hello.txt and data/collected/world.txt
     """)
 

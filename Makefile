@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 .PHONY : clean help ALL
 
-SQLIZED_DB = data/myfoo.sqlite
+SQLIZED_DB = data/sqlized.sqlite
 STUB_WRANGLED = data/wrangled/helloworld.csv
 STUB_FUSED = data/fused/helloworld.csv
 STUB_COLLECTED = data/collected/hello.txt \
@@ -49,7 +49,7 @@ $(SQLIZED_DB): wrangle clean_sqlize
 
 
 # wrangle task should ideally call wrangling scripts
-# e.g. myfoo/wrangle/my_wrangler.py
+# e.g. mypkg/wrangle/my_wrangler.py
 wrangle: $(STUB_WRANGLED)
 
 $(STUB_WRANGLED): fuse ./scripts/wrangle.py
