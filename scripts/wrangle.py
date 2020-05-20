@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 from sys import stderr
 
-SRC_PATH = Path('data/fused/helloworld.csv')
+SRC_PATH = Path('data/compiled/helloworld.csv')
 DEST_PATH = Path('data/wrangled/helloworld.csv')
 
 OUTPUT_HEADERS = ('source', 'last_name', 'first_name', 'current_age', 'birthdate', 'birthplace',)

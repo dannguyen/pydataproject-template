@@ -5,7 +5,7 @@ from pathlib import Path
 from sys import stderr
 
 SRC_DIR = Path('data/collected')
-DEST_PATH = Path('data/fused/helloworld.csv')
+DEST_PATH = Path('data/compiled/helloworld.csv')
 
 RENAMED_HEADERS = ('full_name', 'birthdate', 'birthplace',)
 OUTPUT_HEADERS = ('source', 'full_name', 'birthdate', 'birthplace',)
@@ -34,7 +34,7 @@ def main():
             data = gather_data(src)
             outs.writerows(data)
 
-            stderr.write(f"fused {len(data)} rows from {src}\n")
+            stderr.write(f"compiled {len(data)} rows from {src}\n")
 
     stderr.write(f"Wrote to {DEST_PATH}\n")
 

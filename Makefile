@@ -1,9 +1,9 @@
 .DEFAULT_GOAL := help
 .PHONY : clean help ALL
 
-SQLIZED_DB = data/sqlized.sqlite
+SQLIZED_DB = data/wrapped/sqlized.sqlite
 STUB_WRANGLED = data/wrangled/helloworld.csv
-STUB_FUSED = data/fused/helloworld.csv
+STUB_FUSED = data/compiled/helloworld.csv
 STUB_COLLECTED = data/collected/hello.txt \
 			   data/collected/world.txt
 
@@ -32,7 +32,7 @@ $(SQLIZED_DB): wrangle clean_sqlize
 	@echo --- SQLizing tables $@
 	@echo
 	./scripts/sqlize.sh \
-      $(SQLIZED_DB) data/fused fused
+      $(SQLIZED_DB) data/compiled compiled
 
 	@echo ""
 	@echo "---"
@@ -52,7 +52,7 @@ $(SQLIZED_DB): wrangle clean_sqlize
 # e.g. mypkg/wrangle/my_wrangler.py
 wrangle: $(STUB_WRANGLED)
 
-$(STUB_WRANGLED): fuse ./scripts/wrangle.py
+$(STUB_WRANGLED): compile ./scripts/wrangle.py
 	@echo ""
 	@echo --- Wrangling $@
 	@echo
@@ -60,13 +60,13 @@ $(STUB_WRANGLED): fuse ./scripts/wrangle.py
 	./scripts/wrangle.py
 
 
-fuse: $(STUB_FUSED)
+compile: $(STUB_FUSED)
 
-$(STUB_FUSED): collect ./scripts/fuse.py
+$(STUB_FUSED): collect ./scripts/compile.py
 	@echo ""
 	@echo --- Collating $@
 
-	./scripts/fuse.py
+	./scripts/compile.py
 
 
 collect:
