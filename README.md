@@ -118,7 +118,7 @@ Because the example data is pretty trivial, there aren't any irreversible steps.
 - `current_age` column is derived from `birthdate`
 
 
-### sqlize
+### wrap (sqlize)
 
 I find SQL to be one of the fastest and most convenient ways to explore newly organized data (e.g. tabular data, via compiled and wrangled), especially with the ubiquity of SQLite.
 
@@ -141,15 +141,16 @@ Run `make sqlize` to build [data/mypkg.sqlite](data/mypkg.sqlite). Or, run the d
 ```
 ├── data
 |   ├── mypkg.sqlite      -- a quick database created by `make sqlize`
-|   | 
-│   ├── collected             -- store your original and immutable datafiles here
-│   └── wrangled            -- the end-result of wrangling, ideally csv files
+|   ├── archived          -- store immutable bespoke files here, such as lookup tables
+│   ├── collected         -- store your original and immutable datafiles here
+│   ├── wrangled          -- the end-result of wrangling, ideally csv files
+│   └── wrapped           -- the finished publishable project
 |
-├── data-manifest.yaml      -- lightweight log of where you got your data
+├── data-manifest.yaml    -- lightweight log of where you got your data
 |
-├── mypkg                   -- python package for data processing scripts
-├── scripts                 -- helper scripts, not necessarily python
-└── tests                   -- tests for your python package
+├── mypkg                 -- python package for data processing scripts
+├── scripts               -- helper scripts, not necessarily python
+└── tests                 -- tests for your python package
 ```
 
 
